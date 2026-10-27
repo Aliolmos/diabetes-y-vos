@@ -118,12 +118,15 @@ p { margin: 0; }
 .incl li { background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-size: .95rem; }
 .incl li::before { content: "✓ "; color: var(--ok); font-weight: 700; }
 
-/* Semana */
-.week { margin-top: 40px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.week article { border-top: 4px solid var(--blue); background: var(--tint); border-radius: 0 0 var(--r) var(--r); padding: 22px; display: flex; flex-direction: column; gap: 8px; }
-.day { font-family: var(--mono); font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
-.day small { display: block; text-transform: none; letter-spacing: 0; color: var(--muted); }
-.week p { color: var(--muted); }
+/* Equipo */
+.team { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; }
+.member { flex: 1 1 260px; max-width: 360px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.member img { width: 100%; height: auto; border-radius: var(--r); box-shadow: 0 12px 32px rgba(11, 61, 145, .14); margin-bottom: 8px; }
+.member h3 { font-size: 1.3rem; }
+.member p, .pros p { color: var(--muted); }
+.pros { margin: 40px auto 0; max-width: 900px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pros article { background: var(--tint); border-top: 4px solid var(--blue); border-radius: 0 0 var(--r) var(--r); padding: 20px; display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.day { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
 
 /* Resultados */
 .sec-dark { background: var(--dark); color: var(--dark-fg); }
@@ -172,7 +175,6 @@ p { margin: 0; }
   .hero-in, .two { grid-template-columns: 1fr; }
   .hero-card { max-width: 300px; }
   .steps, .results { grid-template-columns: 1fr; }
-  .week { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
   .menu { display: flex; }
@@ -181,5 +183,5 @@ p { margin: 0; }
   .links a:not(.btn) { padding: 12px 0; border-bottom: 1px solid var(--line); }
   .links .btn { margin-top: 16px; }
   .sec { padding-block: 64px; }
-  .week { grid-template-columns: 1fr; }
+  .pros { grid-template-columns: 1fr; }
 }
