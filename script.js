@@ -28,3 +28,22 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
 }
 
 document.getElementById('year').textContent = new Date().getFullYear()
+
+// Intro: se ve una vez por sesión y se puede saltear con un toque o una tecla
+const intro = document.getElementById('intro')
+if (intro && getComputedStyle(intro).display !== 'none') {
+  const root = document.documentElement
+  const skip = () => intro.classList.add('skip')
+  const end = () => {
+    intro.remove()
+    root.classList.remove('intro-lock')
+    removeEventListener('keydown', skip)
+  }
+  root.classList.add('intro-lock')
+  try { sessionStorage.setItem('dv-intro', '1') } catch (e) {}
+  intro.addEventListener('pointerdown', skip)
+  addEventListener('keydown', skip)
+  intro.addEventListener('animationstart', e => e.animationName === 'intro-exit' && root.classList.remove('intro-lock'))
+  intro.addEventListener('animationend', e => e.target === intro && /intro-(exit|skip)/.test(e.animationName) && end())
+  setTimeout(end, 6000)
+}

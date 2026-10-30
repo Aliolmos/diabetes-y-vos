@@ -188,3 +188,46 @@ p { margin: 0; }
 @media (max-width: 720px) {
   .sec { padding-block: 64px; }
 }
+
+/* Intro de entrada: si no hay JS termina sola, porque todo corre con animaciones CSS */
+@property --intro-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+.intro {
+  --w: min(84vw, 680px); --u: calc(var(--w) / 382);
+  --i-ink: #0f1f3a; --i-ring: #2e86f7; --i-ring-deep: #1a6ff0;
+  --i-x: calc(50% + 106 * var(--u)); --i-y: calc(50% - .5 * var(--u));
+  position: fixed; inset: 0 auto 0 0; width: 100vw; z-index: 100; display: grid; place-items: center; overflow: hidden; cursor: pointer;
+  background: linear-gradient(#9db8fb, #dbe6fe 62%, #fff);
+  -webkit-mask-image: radial-gradient(circle at var(--i-x) var(--i-y), transparent calc(var(--intro-r) - .5px), #000 var(--intro-r));
+  mask-image: radial-gradient(circle at var(--i-x) var(--i-y), transparent calc(var(--intro-r) - .5px), #000 var(--intro-r));
+  animation: intro-iris .25s 2.95s cubic-bezier(.4, 0, 1, 1) forwards, intro-exit .9s 3.2s cubic-bezier(.76, 0, .24, 1) forwards;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .intro { --i-ink: #e8eefb; --i-ring: #5b9dff; --i-ring-deep: #7db1ff; background: linear-gradient(#16294c, #0f1b31 62%, #0c1424); }
+}
+:root[data-theme="dark"] .intro { --i-ink: #e8eefb; --i-ring: #5b9dff; --i-ring-deep: #7db1ff; background: linear-gradient(#16294c, #0f1b31 62%, #0c1424); }
+.intro-logo { width: var(--w); height: auto; overflow: visible; }
+.i-ink { fill: var(--i-ink); animation: intro-fade .25s 2.95s ease-in forwards; }
+.i-half { fill: none; stroke: var(--i-ring); stroke-width: 33.25; animation: intro-join .65s .05s cubic-bezier(.22, 1, .36, 1) backwards, intro-deepen .4s 2.1s ease forwards; }
+.i-top { --from: -86px; }
+.i-bottom { --from: 86px; }
+.i-ring { transform-origin: 347px 102.5px; animation: intro-settle .75s .6s cubic-bezier(.65, 0, .25, 1) backwards; }
+.i-exit { transform-origin: 347px 102.5px; animation: intro-through .9s 3.2s cubic-bezier(.76, 0, .24, 1) forwards; }
+.i-ripple { fill: none; stroke: var(--i-ring); stroke-width: 33.25; opacity: 0; transform-origin: 347px 102.5px; animation: intro-ripple .8s .52s ease-out; }
+.i-wipe { animation: intro-wipe .75s 1.3s cubic-bezier(.45, 0, .2, 1) forwards; }
+.i-vos { transform-origin: 347px 102.5px; animation: intro-pop .45s 1.05s cubic-bezier(.22, 1, .36, 1) backwards; }
+.i-y { transform-origin: 280px 105px; animation: intro-pop .45s 1.95s cubic-bezier(.22, 1, .36, 1) backwards; }
+@keyframes intro-join { from { opacity: 0; transform: translateY(var(--from)); } 30% { opacity: 1; } }
+@keyframes intro-settle { from { transform: translateX(-106px) scale(1.9); } }
+@keyframes intro-ripple { from { opacity: .35; transform: scale(1); } to { opacity: 0; transform: scale(1.5); } }
+@keyframes intro-wipe { to { transform: translateX(-460px); } }
+@keyframes intro-pop { from { opacity: 0; transform: scale(.82); } }
+@keyframes intro-deepen { to { stroke: var(--i-ring-deep); } }
+@keyframes intro-fade { to { opacity: 0; } }
+@keyframes intro-iris { to { --intro-r: calc(51 * var(--u)); } }
+@keyframes intro-through { to { transform: scale(22); } }
+@keyframes intro-exit { from { --intro-r: calc(51 * var(--u)); } 90% { opacity: 1; } to { --intro-r: calc(1122 * var(--u)); opacity: 0; visibility: hidden; } }
+@keyframes intro-skip { to { opacity: 0; visibility: hidden; } }
+.intro.skip { animation: intro-skip .3s ease forwards; }
+html.intro-lock { overflow: hidden; }
+html.no-intro .intro { display: none; }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
