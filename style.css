@@ -120,11 +120,13 @@ p { margin: 0; }
 
 /* Equipo */
 .team { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; }
-.member { flex: 1 1 260px; max-width: 360px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-.member img { width: 100%; height: auto; border-radius: var(--r); box-shadow: 0 12px 32px rgba(11, 61, 145, .14); margin-bottom: 8px; }
+.member { flex: 0 1 340px; display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; box-shadow: 0 12px 32px rgba(11, 61, 145, .14); }
+.member img { display: block; width: 100%; height: auto; }
+.member-info { flex: 1; padding: 18px 20px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+.member-info .day { margin-top: auto; padding-top: 6px; }
 .member h3 { font-size: 1.3rem; }
 .member p, .pros p { color: var(--muted); }
-.pros { margin: 40px auto 0; max-width: 900px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pros { margin: 28px auto 0; max-width: 340px; }
 .pros article { background: var(--tint); border-top: 4px solid var(--blue); border-radius: 0 0 var(--r) var(--r); padding: 20px; display: flex; flex-direction: column; gap: 6px; text-align: center; }
 .day { font-family: var(--mono); font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
 
@@ -176,12 +178,13 @@ p { margin: 0; }
   .hero-card { max-width: 300px; }
   .steps, .results { grid-template-columns: 1fr; }
 }
-@media (max-width: 720px) {
+@media (max-width: 1040px) {
   .menu { display: flex; }
   .links { position: absolute; top: 68px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding: 8px max(20px, env(safe-area-inset-left, 0px)) 20px; display: none; }
   .links.open { display: flex; }
   .links a:not(.btn) { padding: 12px 0; border-bottom: 1px solid var(--line); }
   .links .btn { margin-top: 16px; }
+}
+@media (max-width: 720px) {
   .sec { padding-block: 64px; }
-  .pros { grid-template-columns: 1fr; }
 }
